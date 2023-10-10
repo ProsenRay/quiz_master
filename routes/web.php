@@ -18,6 +18,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('register', [AuthController::class, 'registerload']);
+Route::get('register', [AuthController::class, 'registerload'])->name('register');
 Route::post('studentregister',[AuthController::class, 'studentregister'])->name('studentregister');
 route::get('delete/{id}', [AuthController::class, 'delete'])->name('delete');
+route::get('edit/{id}', [AuthController::class, 'edit'])->name('edit');
+route::put('update/{id}', [AuthController::class, 'update'])->name('update');

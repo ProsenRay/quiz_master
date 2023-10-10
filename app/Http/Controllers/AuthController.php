@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -70,6 +71,58 @@ class AuthController extends Controller
        
         return redirect()->back();
 
+
+    }
+
+    public function edit($id){
+        $data = User::find($id);
+        return view('edit',compact('data')) ;
+    }
+
+    public function update(Request $request, $id){
+       
+
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'number' => 'required',
+            'address' => 'required',
+            'image' => ['image','mimes:jpeg,png,jpg,gif,fvg','max:2048'],
+            'password' => ['string','required','confirmed','min:6']
+            
+        ]);
+        
+        
+
+        $user = User::find($id);
+       
+        if($request->image){
+            $destination = storage_path('app/public/category/subcategory/'.$user->image);
+            // if(File::exists($destination)){
+            //     File::delete($destination);
+            // }
+            if(is_file($destination)){
+                File::delete($destination);
+            }
+            $imageName = time().'.'.$request->image->extension();
+            // $request->image->storeAs('public/photos',$imageName);
+            $request->image->move(storage_path('app/public/category/subcategory'),$imageName);
+            $user->image = $imageName;
+            $user->update(); 
+        }
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->number = $request->number;
+        $user->address = $request->address;
+       
+       
+        $user->password = Hash::make($request->password);
+        $user->update();
+        // $image_path = storage_path('app/public/category/subcategory/'.$user->image);
+        
+        
+        
+        return redirect('register')->with('success','Update successfull');
 
     }
 }
