@@ -19,27 +19,27 @@
             </ul>
          </div>
          @endif
-         <form action="{{route('update', $data->id)}}" method="POST" enctype="multipart/form-data">
+         <form action="{{route('update', $user->id)}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            <input type="text" name="name" placeholder="Enter your Name" value="{{$data->name}}">
+            <input type="text" name="name" placeholder="Enter your Name" value="{{$user->name}}">
             <br>
             {{-- @error('name')
              <span class="alert-danger">{{ $message }}</span>
             @enderror --}}
             <br>
-            <input type="email" name="email" placeholder="Enter your Email" value="{{$data->email}}">
+            <input type="email" name="email" placeholder="Enter your Email" value="{{$user->email}}">
             <br><br>
-            <input type="text" name="number" placeholder="Enter your Number" value="{{$data->number}}">
+            <input type="text" name="number" placeholder="Enter your Number" value="{{$user->number}}">
             <br><br>
-            <input type="text" name="address" placeholder="Enter your Address" value="{{$data->address}}">
+            <input type="text" name="address" placeholder="Enter your Address" value="{{$user->address}}">
             <br><br>
             <input type="file" name="image" placeholder="Enter your Image" value="">
-            <img style="width:20px" src="{{asset('storage/category/subcategory/'.$data->image)}}" alt="">
+            <img style="width:20px" src="{{asset('storage/category/subcategory/'.$user->image)}}" alt="">
             <br><br>
-            <input type="password" name="password" placeholder="Enter your Passwor" value="{{$data->password}}">
+            <input type="password" name="password" placeholder="Enter your Passwor" value="{{$user->password}}">
             <br><br>
-            <input type="password" name="password_confirmation" placeholder="Enter your Password" value="{{$data->password}}">
+            <input type="password" name="password_confirmation" placeholder="Enter your Password" value="{{$user->password}}">
             <br><br>
     
             <input type="submit" value="Update">

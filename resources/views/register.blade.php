@@ -66,11 +66,17 @@
             <td>{{$user->email}}</td>
             <td>{{$user->number}}</td>
             <td>{{$user->address}}</td>
-            <td><img style="width:20px" src="{{asset('storage/category/subcategory/'.$user->image)}}" alt=""></td>
+            <td><img style="width:20px" src="{{asset('storage/'.$user->image)}}" alt=""></td>
             
             <td >
                <a href="{{route('edit', $user->id)}}">Edit</a>
-               <a href="{{route('delete', $user->id)}}">Delete</a>
+               {{-- <a href="{{route('delete', $user->id)}}">Delete</a> --}}
+
+               <form action="{{route('delete', $user->id)}}" method="psot">
+                  @csrf
+                  @method('DELETE')
+                  <input type="submit" value="Delete">
+               </form>
                
             </td>
             
