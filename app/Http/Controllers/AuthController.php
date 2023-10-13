@@ -116,9 +116,10 @@ class AuthController extends Controller
         ]);
                     
                 if($request->hasFile('image')){
-                    $image = storage_path('app/public/'.$user->image);
-                    if(File::exists($image)){
-                        File::delete($image);
+                    // $image = storage_path('app/public/'.$user->image);
+                    $image = $user->image;
+                    if(Storage::exists($image)){
+                        Storage::delete($image);
                     }
                     $user->image = $request->file('image')
                     ->store('category/subcategory');
@@ -169,12 +170,12 @@ class AuthController extends Controller
 
     public function delete(User $user){
        
-        $image = storage_path('app/public/'.$user->image);
-        // $image = $user->image;
+        // $image = storage_path('app/public/'.$user->image);
+        $image = $user->image;
         
-        if(File::exists($image)){
+        if(Storage::exists($image)){
             
-           File::delete($image);
+           Storage::delete($image);
           
             
         }
